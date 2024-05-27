@@ -10,9 +10,9 @@ import React, { useState } from "react";
 import { icons } from "../constants";
 import { router, usePathname } from "expo-router";
 
-const SearchInput = () => {
+const SearchInput = ({ initialValue }) => {
   const pathname = usePathname();
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(initialValue || "");
   return (
     <View className="w-full h-16 bg-black-100 border-2 border-black-200 rounded-2xl flex-row  px-4  items-center justify-between focus:border-secondary mt-6 space-x-4">
       <TextInput

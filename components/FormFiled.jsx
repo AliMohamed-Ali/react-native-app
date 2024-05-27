@@ -20,7 +20,7 @@ const FormFiled = ({
           placeholderTextColor={"#7B7B8B"}
           value={value}
           onChangeText={handleChangeText}
-          placeholder="Your unique username"
+          placeholder={placeholder}
           secureTextEntry={title === "Password" && !showPassword}
         />
         {title === "Password" && (

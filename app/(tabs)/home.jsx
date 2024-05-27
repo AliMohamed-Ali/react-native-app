@@ -15,15 +15,13 @@ import { useEffect, useState } from "react";
 import { getAllPosts, getLatest } from "../../lib/appwrite";
 import useAppwrite from "../../lib/useAppwrite";
 import VideoCard from "../../components/VideoCard";
+import { useGlobalContext } from "../../context/GlobalProvider";
 
 const Home = () => {
+  const { user } = useGlobalContext();
   const [refreshing, setRefreshing] = useState(false);
-  const { data: posts, isLoading, refreshData } = useAppwrite(getAllPosts);
-  const {
-    data: latest,
-    isLoading: latestLoading,
-    refreshData: refreshLatest,
-  } = useAppwrite(getLatest);
+  const { data: posts, refreshData } = useAppwrite(getAllPosts);
+  const { data: latest } = useAppwrite(getLatest);
 
   const onRefresh = async () => {
     setRefreshing(true);
@@ -35,7 +33,6 @@ const Home = () => {
     <SafeAreaView className="bg-primary h-full">
       <FlatList
         data={posts}
-        // data={[]}
         keyExtractor={(item) => item.$id}
         renderItem={({ item }) => <VideoCard video={item} />}
         ListHeaderComponent={() => (
@@ -43,10 +40,10 @@ const Home = () => {
             <View className="flex-row justify-between items-start">
               <View>
                 <Text className="text-gray-100 text-pmedium text-sm">
-                  Welcome Back
+                  Welcome back,
                 </Text>
                 <Text className="text-white text-psemibold  text-2xl">
-                  Username
+                  {user?.username}
                 </Text>
               </View>
               <View className="mt-1.5">
